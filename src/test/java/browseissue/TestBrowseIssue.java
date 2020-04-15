@@ -1,8 +1,8 @@
 package browseissue;
 
-import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.openqa.selenium.WebDriver;
@@ -15,15 +15,15 @@ import java.util.concurrent.TimeUnit;
 
 public class TestBrowseIssue {
 
-    private final String USERNAME = System.getenv("USERNAME");
-    private final String PASSWORD = System.getenv("PASSWORD");
-    private WebDriver driver;
-    private MainPage mainPage;
-    private IssuePage issuePage;
-    private WebDriverWait wait;
+    private static final String USERNAME = System.getenv("USERNAME");
+    private static final String PASSWORD = System.getenv("PASSWORD");
+    private static WebDriver driver;
+    private static MainPage mainPage;
+    private static IssuePage issuePage;
+    private static WebDriverWait wait;
 
-    @BeforeEach
-    public void setup() {
+    @BeforeAll
+    static void setup() {
         driver = new FirefoxDriver();
         wait = new WebDriverWait(driver, 10);
         mainPage = new MainPage(driver, wait);
@@ -33,8 +33,8 @@ public class TestBrowseIssue {
         mainPage.login(USERNAME, PASSWORD);
     }
 
-    @AfterEach
-    public void teardown() {
+    @AfterAll
+    static void teardown() {
         driver.close();
     }
 
