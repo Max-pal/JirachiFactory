@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -20,7 +21,13 @@ public class IssuePage {
     }
 
     public String getKeyValue() {
-        System.out.println(issueKey.getAttribute("data-issue-key"));
-        return issueKey.getAttribute("data-issue-key");
+        String key = null;
+        try {
+            key = issueKey.getAttribute("data-issue-key");
+            System.out.println(key);
+        } catch (NoSuchElementException e) {
+            throw new AssertionError("Issue is not accessible", e);
+        }
+        return key;
     }
 }
