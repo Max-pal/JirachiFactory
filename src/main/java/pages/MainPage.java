@@ -11,11 +11,16 @@ public class MainPage {
 
     private WebDriver driver;
     private WebDriverWait wait;
-    @FindBy(id= "login-form-username") private WebElement usernameField;
-    @FindBy(id= "login-form-password") private WebElement passwordField;
-    @FindBy(id= "login") private WebElement loginButton;
-    @FindBy(xpath = "//p[contains(text(),'Sorry, your username and password are incorrect')]") private WebElement errorMessage;
-//    @FindBy(xpath = "//a[@id='header-details-user-fullname']//img") private WebElement userProfilePic;
+    @FindBy(id = "login-form-username")
+    private WebElement usernameField;
+    @FindBy(id = "login-form-password")
+    private WebElement passwordField;
+    @FindBy(id = "login")
+    private WebElement loginButton;
+    @FindBy(xpath = "//p[contains(text(),'Sorry, your username and password are incorrect')]")
+    private WebElement errorMessage;
+    @FindBy(xpath = "//a[@id='header-details-user-fullname']")
+    private WebElement userProfilePic;
 
     public MainPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
@@ -47,7 +52,9 @@ public class MainPage {
         return wait.until(ExpectedConditions.visibilityOf(errorMessage));
     }
 
-//    public WebElement getProfilePic() {
-//        return wait.until(ExpectedConditions.visibilityOf(userProfilePic));
-//    }
+    public String getLoggedInUserName() {
+        wait.until(ExpectedConditions.visibilityOf(userProfilePic));
+        System.out.println(userProfilePic.getAttribute("data-username"));
+        return userProfilePic.getAttribute("data-username");
+    }
 }

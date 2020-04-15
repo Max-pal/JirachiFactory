@@ -11,11 +11,10 @@ import pages.MainPage;
 
 import java.util.concurrent.TimeUnit;
 
-public class TestWrongPasswordMainPage {
+public class TestValidCredentialsMainPage {
 
     private final String USERNAME = System.getenv("USERNAME");
     private final String PASSWORD = System.getenv("PASSWORD");
-    private final String WRONGPASSWORD = System.getenv("WRONGPASSWORD");
     private WebDriver driver;
     private MainPage mainPage;
     private WebDriverWait wait;
@@ -38,10 +37,7 @@ public class TestWrongPasswordMainPage {
     public void loginTest() {
         mainPage = new MainPage(driver, wait);
 
-        mainPage.login(USERNAME, WRONGPASSWORD);
-        Assertions.assertNotNull(mainPage.getErrorMessage());
-
         mainPage.login(USERNAME, PASSWORD);
-        Assertions.assertEquals(USERNAME, mainPage.getLoggedInUserName());
+        Assertions.assertNotNull(mainPage.getLoggedInUserName());
     }
 }
