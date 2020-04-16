@@ -19,11 +19,10 @@ public class TestEmptyCredentialsMainPage {
     private WebDriverWait wait;
     private final String USERNAME = System.getenv("USERNAME");
     private final String VALIDPASSWORD = System.getenv("PASSWORD");
-    private final String EMPTYPASSWORD = "";
 
     @BeforeEach
     public void setUp() {
-        driver = new ChromeDriver();
+        driver = new FirefoxDriver();
         wait = new WebDriverWait(driver, 10);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
@@ -33,13 +32,13 @@ public class TestEmptyCredentialsMainPage {
     @Test
     public void loginTest() {
         mainPage = new MainPage(driver, wait);
-        mainPage.login(USERNAME, EMPTYPASSWORD);
+        mainPage.clickLoginButton();
         Assertions.assertNotNull(mainPage.getErrorMessage());
-        mainPage.login(USERNAME, VALIDPASSWORD);
     }
 
     @AfterEach
     public void tearDown() {
+        mainPage.login(USERNAME, VALIDPASSWORD);
         driver.close();
     }
 }
