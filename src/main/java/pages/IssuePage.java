@@ -45,20 +45,14 @@ public class IssuePage {
     }
 
     public void editSummary(String newSummary, Waiter waiter, String baseURL) throws InterruptedException {
-
         // todo: fix the waitings
-
-//        wait.until(ExpectedConditions.visibilityOf(editIssueButton));
-//        waiter.waitForPageLoadComplete(driver);
-
         waiter.get(baseURL, driver);
+        waiter.waitForElementToBeDisplayed(editIssueButton, driver);
         editIssueButton.click();
-//        waiter.waitForPageLoadComplete(driver);
-//        wait.until(ExpectedConditions.visibilityOf(issueDialog));
+        waiter.waitForElementToBeDisplayed(issueDialog, driver);
         summaryField.sendKeys(newSummary);
-        updateIssueButton.click();
-
-//        waiter.waitForPageLoadComplete(driver);
+        waiter.clickElementAndWaitForUrl(updateIssueButton, baseURL,driver);
+        waiter.get(baseURL, driver);
     }
 
     public String getSummary() {

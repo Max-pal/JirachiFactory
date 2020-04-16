@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.IssuePage;
@@ -28,14 +29,15 @@ public class TestEditIssue {
     @BeforeAll
     static void setup() {
         driver = new FirefoxDriver();
-        wait = new WebDriverWait(driver, 10);
+        wait = new WebDriverWait(driver, 45);
         waiter = new Waiter();
         mainPage = new MainPage(driver, wait);
         issuePage = new IssuePage(driver, wait);
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(45, TimeUnit.SECONDS);
         driver.manage().window().maximize();
-        driver.get("https://jira.codecool.codecanvas.hu/");
+        waiter.get("https://jira.codecool.codecanvas.hu/", driver);
         mainPage.login(USERNAME, PASSWORD);
+        waiter.waitForPageLoadComplete(driver);
     }
 
     @AfterAll
@@ -46,7 +48,6 @@ public class TestEditIssue {
     @Test
     public void generalEditIssueTest() throws InterruptedException {
         String baseURL = "https://jira.codecool.codecanvas.hu/browse/MTP-656";
-
 //        driver.get(baseURL);
         issuePage.editSummary("Big issue", waiter, baseURL);
         Assertions.assertEquals("Big issue", issuePage.getSummary());
