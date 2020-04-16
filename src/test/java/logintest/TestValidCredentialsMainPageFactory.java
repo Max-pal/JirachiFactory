@@ -7,17 +7,16 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import pages.MainPage;
+import pages.MainPageFactory;
 
 import java.util.concurrent.TimeUnit;
 
-public class TestWrongPasswordMainPage {
+public class TestValidCredentialsMainPageFactory {
 
     private final String USERNAME = System.getenv("USERNAME");
     private final String PASSWORD = System.getenv("PASSWORD");
-    private final String WRONGPASSWORD = System.getenv("WRONGPASSWORD");
     private WebDriver driver;
-    private MainPage mainPage;
+    private MainPageFactory mainPageFactory;
     private WebDriverWait wait;
 
     @BeforeEach
@@ -36,12 +35,9 @@ public class TestWrongPasswordMainPage {
 
     @Test
     public void loginTest() {
-        mainPage = new MainPage(driver, wait);
+        mainPageFactory = new MainPageFactory(driver, wait);
 
-        mainPage.login(USERNAME, WRONGPASSWORD);
-        Assertions.assertNotNull(mainPage.getErrorMessage());
-
-        mainPage.login(USERNAME, PASSWORD);
-        Assertions.assertEquals(USERNAME, mainPage.getLoggedInUserName());
+        mainPageFactory.login(USERNAME, PASSWORD);
+        Assertions.assertNotNull(mainPageFactory.getLoggedInUserName());
     }
 }
