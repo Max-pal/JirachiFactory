@@ -1,10 +1,9 @@
 package createissue;
 
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -17,9 +16,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class TestCreateIssueGeneral {
     private final String USERNAME = System.getenv("USERNAME");
     private final String PASSWORD = System.getenv("PASSWORD");
-    private final String projectName = System.getenv("projectName");
-    private final String issueType = System.getenv("issueType");
-    private final String summaryText = System.getenv("summaryText");
+    private String projectName;
+    private String issueType;
+    private String summaryText;
     private WebDriver driver;
     private MainPageFactory mainPage;
     private WebDriverWait wait;
@@ -35,15 +34,16 @@ public class TestCreateIssueGeneral {
         mainPage.login(USERNAME, PASSWORD);
     }
 
-    @Test
-    public void createIssueTest(String porjectName, String issueType, String summaryText){
+    @ParameterizedTest(name = "\"{0}\"")
+    @CsvFileSource(resources = "/data_create_issue.csv", numLinesToSkip = 1)
+    public void createIssueTest(String porjectName, String issueType, String summaryText) {
         mainPage.clickCreateIssue();
-        mainPage.selectProject("COALA Project (COALA)");
-        mainPage.selectTask("Task");
-        mainPage.fillSummaryField("Test from selenium");
+        mainPage.selectProject("\"{0}\"");
+        mainPage.selectTask(issueType);
+        mainPage.fillSummaryField(summaryText);
         mainPage.submitNewIssue();
         mainPage.redirectToSubmittedIssue();
-        assertTrue(mainPage.getSubmittedIssueSummary().getText().contains("Test from selenium"));
+        assertTrue(mainPage.getSubmittedIssueSummary().getText().contains(summaryText));
     }
 
     @AfterEach
