@@ -1,4 +1,4 @@
-package logintest;
+package test.logintest;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
