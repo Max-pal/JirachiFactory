@@ -1,6 +1,5 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,12 +7,11 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import waiter.Waiter;
 
 public class IssuePage {
 
-    private WebDriver driver;
     private WebDriverWait wait;
+
     @FindBy(id = "key-val")
     private WebElement issueKey;
     @FindBy(id = "summary-val")
@@ -24,35 +22,32 @@ public class IssuePage {
     private WebElement issueDialog;
     @FindBy(id = "summary")
     private WebElement summaryField;
-    @FindBy(xpath = "//*[contains(@id, 'submit') and contains(@id, 'edit')]")
-    private WebElement updateIssueButton;
+    @FindBy(id = "edit-issue-submit")
+    private WebElement updateIssueButtonModal;
+    @FindBy(id = "issue-edit-submit")
+    private WebElement updateIssueButtonDefault;
 
     public IssuePage(WebDriver driver, WebDriverWait wait) {
-        this.driver = driver;
         this.wait = wait;
         PageFactory.initElements(driver, this);
     }
 
     public String getKeyValue() {
-        String key = null;
         try {
-            key = issueKey.getAttribute("data-issue-key");
-            System.out.println(key);
+            wait.until(ExpectedConditions.visibilityOf(issueKey));
+            return issueKey.getAttribute("data-issue-key");
         } catch (NoSuchElementException e) {
-            throw new AssertionError("Issue is not accessible", e);
+            return null;
         }
-        return key;
     }
 
-    public void editSummary(String newSummary, Waiter waiter, String baseURL) throws InterruptedException {
-        // todo: fix the waitings
-        waiter.get(baseURL, driver);
-        waiter.waitForElementToBeDisplayed(editIssueButton, driver);
+    public void editSummary(String newSummary, String baseURL) throws InterruptedException {
+        wait.until(ExpectedConditions.elementToBeClickable(editIssueButton));
         editIssueButton.click();
-        waiter.waitForElementToBeDisplayed(issueDialog, driver);
+        wait.until(ExpectedConditions.visibilityOf(summaryField));
         summaryField.sendKeys(newSummary);
-        waiter.clickElementAndWaitForUrl(updateIssueButton, baseURL,driver);
-        waiter.get(baseURL, driver);
+
+        updateIssueButtonModal.click();
     }
 
     public String getSummary() {
@@ -60,13 +55,11 @@ public class IssuePage {
     }
 
     public boolean isEditable() {
-        boolean issueIsEditable = false;
         try {
-            issueIsEditable = editIssueButton.isDisplayed();
-            System.out.println("Issue is editable");
+            wait.until(ExpectedConditions.visibilityOf(editIssueButton));
+            return true;
         } catch (NoSuchElementException e) {
-            throw new AssertionError("Issue is not editable", e);
+            return false;
         }
-        return issueIsEditable;
     }
 }

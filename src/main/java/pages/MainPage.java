@@ -9,7 +9,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class MainPage {
 
-    private WebDriver driver;
     private WebDriverWait wait;
     @FindBy(id = "login-form-username")
     private WebElement usernameField;
@@ -23,7 +22,6 @@ public class MainPage {
     private WebElement userProfilePic;
 
     public MainPage(WebDriver driver, WebDriverWait wait) {
-        this.driver = driver;
         this.wait = wait;
         PageFactory.initElements(driver, this);
     }
