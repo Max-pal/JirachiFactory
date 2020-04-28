@@ -52,7 +52,7 @@ public class TestEditIssue {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "/data_edit_issue.csv")
+    @CsvFileSource(resources = "/data_issue_id.csv")
     public void issueEditableTest(String issueId) {
         String url = BASEURL + "browse/" + issueId;
         driver.get(url);

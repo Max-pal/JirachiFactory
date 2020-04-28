@@ -15,35 +15,37 @@ import java.util.concurrent.TimeUnit;
 
 public class TestBrowseIssue {
 
+    private static final String BASEURL = "https://jira.codecool.codecanvas.hu/";
     private static final String USERNAME = System.getenv("USERNAME");
     private static final String PASSWORD = System.getenv("PASSWORD");
     private static WebDriver driver;
+    private static WebDriverWait wait;
     private static MainPage mainPage;
     private static IssuePage issuePage;
-    private static WebDriverWait wait;
 
     @BeforeAll
-    static void setup() {
+    public static void setup() {
         driver = new FirefoxDriver();
         wait = new WebDriverWait(driver, 10);
         mainPage = new MainPage(driver, wait);
+        issuePage = new IssuePage(driver, wait);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
-        driver.get("https://jira.codecool.codecanvas.hu/");
+        driver.get(BASEURL);
         mainPage.login(USERNAME, PASSWORD);
     }
 
     @AfterAll
-    static void teardown() {
+    public static void teardown() {
         driver.close();
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "/data_browse_issue_url.csv")
-    public void BrowseIssueTest(String issueUrl, String issueKey) {
+    @CsvFileSource(resources = "/data_issue_id.csv")
+    public void BrowseIssueTest(String issueId) {
         issuePage = new IssuePage(driver, wait);
 
-        driver.get(issueUrl);
-        Assertions.assertEquals(issuePage.getKeyValue(), issueKey);
+        driver.get(BASEURL + "browse/" + issueId);
+        Assertions.assertEquals(issuePage.getKeyValue(), issueId);
     }
 }
