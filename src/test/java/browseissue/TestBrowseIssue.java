@@ -1,4 +1,4 @@
-package test.browseissue;
+package browseissue;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
