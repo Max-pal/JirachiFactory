@@ -24,7 +24,7 @@ public class ProjectPage {
     public String getProjectNameValue() {
         try {
             wait.until(ExpectedConditions.visibilityOf(projectName));
-            return projectName.getAttribute("project-title");
+            return projectName.getText();
         } catch (NoSuchElementException e) {
             return null;
         }
