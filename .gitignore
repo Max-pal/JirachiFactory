@@ -17,7 +17,7 @@
 .idea/dictionaries
 .idea/vcs.xml
 .idea/jsLibraryMappings.xml
-
+.idea/*
 # Generated files
 .idea/**/contentModel.xml
 
@@ -29,7 +29,7 @@
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
-
+target
 # Gradle
 .idea/**/gradle.xml
 .idea/**/libraries

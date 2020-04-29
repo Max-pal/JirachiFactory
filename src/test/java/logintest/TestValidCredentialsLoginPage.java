@@ -7,16 +7,18 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import pages.JiraLoginPageFactory;
+import pages.MainPage;
+import pages.LoginPage;
 
 import java.util.concurrent.TimeUnit;
 
-public class TestValidCredentialsMainPageFactory {
+public class TestValidCredentialsLoginPage {
 
     private final String USERNAME = System.getenv("USERNAME");
     private final String PASSWORD = System.getenv("PASSWORD");
     private WebDriver driver;
-    private JiraLoginPageFactory jiraLoginPage;
+    private MainPage mainPage;
+    private LoginPage loginPage;
     private WebDriverWait wait;
 
     @BeforeEach
@@ -35,9 +37,9 @@ public class TestValidCredentialsMainPageFactory {
 
     @Test
     public void loginTest() {
-        jiraLoginPage = new jiraLoginPage(driver, wait);
-
-        jiraLoginPage.login(USERNAME, PASSWORD);
-        Assertions.assertNotNull(jiraLoginPage.getLoggedInUserName());
+        mainPage = new MainPage(driver, wait);
+        loginPage = new LoginPage(driver, wait);
+        loginPage.login(USERNAME, PASSWORD);
+        Assertions.assertNotNull(mainPage.getLoggedInUserName());
     }
 }
