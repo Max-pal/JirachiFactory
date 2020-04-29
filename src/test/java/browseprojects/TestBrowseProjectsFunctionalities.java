@@ -40,7 +40,7 @@ public class TestBrowseProjectsFunctionalities {
     public void BrowseIssueTest(String projectName) {
         projectPage = new ProjectPage(driver, wait);
         driver.get(BASEURL + "projects/" + projectName + "/summary");
-        Assertions.assertEquals(projectPage.getProjectNameValue(), projectName);
+        Assertions.assertEquals(projectName + " Project", projectPage.getProjectNameValue());
     }
 
     @AfterAll
