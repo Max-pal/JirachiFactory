@@ -42,9 +42,9 @@ public class TestEditIssue {
     }
 
     @Test
-    public void generalEditIssueTest() throws InterruptedException {
+    public void generalEditIssueTest() {
         String url = BASEURL + "browse/MTP-656";
-        driver.get(url);
+        navigateTo(url);
         issuePage.editSummary("Big issue", url);
         Assertions.assertEquals("Big issue", issuePage.getSummary());
         // clean-up:
@@ -55,8 +55,12 @@ public class TestEditIssue {
     @CsvFileSource(resources = "/data_issue_id.csv")
     public void issueEditableTest(String issueId) {
         String url = BASEURL + "browse/" + issueId;
-        driver.get(url);
+        navigateTo(url);
         Assertions.assertTrue(issuePage.isEditable());
+    }
+
+    private void navigateTo(String url) {
+        driver.get(url);
     }
 
 }

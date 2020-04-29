@@ -1,6 +1,6 @@
 package pages;
 
-import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -36,12 +36,12 @@ public class IssuePage {
         try {
             wait.until(ExpectedConditions.visibilityOf(issueKey));
             return issueKey.getAttribute("data-issue-key");
-        } catch (NoSuchElementException e) {
+        } catch (TimeoutException e) {
             return null;
         }
     }
 
-    public void editSummary(String newSummary, String baseURL) throws InterruptedException {
+    public void editSummary(String newSummary, String baseURL) {
         wait.until(ExpectedConditions.elementToBeClickable(editIssueButton));
         editIssueButton.click();
         wait.until(ExpectedConditions.visibilityOf(summaryField));
@@ -51,14 +51,19 @@ public class IssuePage {
     }
 
     public String getSummary() {
-        return summaryFieldCheck.getText();
+        try {
+            wait.until(ExpectedConditions.visibilityOf(summaryFieldCheck));
+            return summaryFieldCheck.getText();
+        } catch (TimeoutException e) {
+            return null;
+        }
     }
 
     public boolean isEditable() {
         try {
             wait.until(ExpectedConditions.visibilityOf(editIssueButton));
             return true;
-        } catch (NoSuchElementException e) {
+        } catch (TimeoutException e) {
             return false;
         }
     }
