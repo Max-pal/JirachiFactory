@@ -45,10 +45,10 @@ public class TestEditIssue {
     public void generalEditIssueTest() {
         String url = BASEURL + "browse/MTP-656";
         navigateTo(url);
-        issuePage.editSummary("Big issue", url);
+        issuePage.editSummary("Big issue");
         Assertions.assertEquals("Big issue", issuePage.getSummary());
         // clean-up:
-        issuePage.editSummary("Small issue", url);
+        issuePage.editSummary("Small issue");
     }
 
     @ParameterizedTest

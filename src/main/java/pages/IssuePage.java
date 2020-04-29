@@ -41,7 +41,7 @@ public class IssuePage {
         }
     }
 
-    public void editSummary(String newSummary, String baseURL) {
+    public void editSummary(String newSummary) {
         wait.until(ExpectedConditions.elementToBeClickable(editIssueButton));
         editIssueButton.click();
         wait.until(ExpectedConditions.visibilityOf(summaryField));
