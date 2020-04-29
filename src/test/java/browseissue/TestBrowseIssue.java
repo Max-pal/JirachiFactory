@@ -43,9 +43,11 @@ public class TestBrowseIssue {
     @ParameterizedTest
     @CsvFileSource(resources = "/data_issue_id.csv")
     public void BrowseIssueTest(String issueId) {
-        issuePage = new IssuePage(driver, wait);
+        navigateTo(BASEURL + "browse/" + issueId);
+        Assertions.assertEquals(issueId, issuePage.getKeyValue());
+    }
 
-        driver.get(BASEURL + "browse/" + issueId);
-        Assertions.assertEquals(issuePage.getKeyValue(), issueId);
+    private void navigateTo(String url) {
+        driver.get(url);
     }
 }
