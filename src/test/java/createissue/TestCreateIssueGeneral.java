@@ -7,7 +7,7 @@ import org.junit.jupiter.params.provider.CsvFileSource;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import pages.MainPageFactory;
+import pages.MainPage;
 
 import java.util.concurrent.TimeUnit;
 
@@ -20,7 +20,7 @@ public class TestCreateIssueGeneral {
     private String issueType;
     private String summaryText;
     private WebDriver driver;
-    private MainPageFactory mainPage;
+    private MainPage mainPage;
     private WebDriverWait wait;
 
     @BeforeEach
@@ -30,7 +30,7 @@ public class TestCreateIssueGeneral {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         driver.get("https://jira.codecool.codecanvas.hu/");
-        mainPage = new MainPageFactory(driver, wait);
+        mainPage = new MainPage(driver, wait);
         mainPage.login(USERNAME, PASSWORD);
     }
 

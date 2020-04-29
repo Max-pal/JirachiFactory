@@ -5,58 +5,40 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.concurrent.TimeUnit;
+public class MainPage {
 
-
-public class MainPageFactory {
-
-    private WebDriver driver;
     private WebDriverWait wait;
     @FindBy(id = "login-form-username")
     private WebElement usernameField;
-
     @FindBy(id = "login-form-password")
     private WebElement passwordField;
-
     @FindBy(id = "login")
     private WebElement loginButton;
-
     @FindBy(xpath = "//p[contains(text(),'Sorry, your username and password are incorrect')]")
     private WebElement errorMessage;
-
     @FindBy(xpath = "//a[@id='header-details-user-fullname']")
     private WebElement userProfilePic;
-
     @FindBy(xpath = "//*[@id=\"create_link\"]")
     private WebElement createIssueButton;
-
     @FindBy(xpath = "//*[@id=\"create-issue-dialog\"]")
     private WebElement createIssueDialoge;
-
     @FindBy(xpath = "//*[@id=\"project-field\"]")
     private WebElement projectSelectorDropdown;
-
     @FindBy(xpath = "//*[@id=\"issuetype-field\"]")
     private WebElement issueTypeSelectorDropdown;
-
     @FindBy(id = "summary")
     private WebElement summaryField;
-
     @FindBy(id = "create-issue-submit")
     private WebElement createIssueSubmitButton;
-
     @FindBy(xpath = "//*[contains(@class, 'issue-created-key')]")
     private WebElement issueSubmittedMessage;
-
     @FindBy(id = "summary-val")
     private WebElement submittedIssueSummary;
 
-    public MainPageFactory(WebDriver driver, WebDriverWait wait) {
-        this.driver = driver;
+    public MainPage(WebDriver driver, WebDriverWait wait) {
         this.wait = wait;
         PageFactory.initElements(driver, this);
     }
