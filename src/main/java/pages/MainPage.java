@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -21,22 +22,12 @@ public class MainPage {
     private WebElement errorMessage;
     @FindBy(xpath = "//a[@id='header-details-user-fullname']")
     private WebElement userProfilePic;
-    @FindBy(xpath = "//*[@id=\"create_link\"]")
-    private WebElement createIssueButton;
-    @FindBy(xpath = "//*[@id=\"create-issue-dialog\"]")
-    private WebElement createIssueDialoge;
-    @FindBy(xpath = "//*[@id=\"project-field\"]")
-    private WebElement projectSelectorDropdown;
-    @FindBy(xpath = "//*[@id=\"issuetype-field\"]")
-    private WebElement issueTypeSelectorDropdown;
-    @FindBy(id = "summary")
-    private WebElement summaryField;
-    @FindBy(id = "create-issue-submit")
-    private WebElement createIssueSubmitButton;
-    @FindBy(xpath = "//*[contains(@class, 'issue-created-key')]")
-    private WebElement issueSubmittedMessage;
-    @FindBy(id = "summary-val")
-    private WebElement submittedIssueSummary;
+    @FindBy(id = "log_out")
+    private WebElement logoutButton;
+    @FindBy(xpath = "//strong[contains(text(),'You are now logged out')]")
+    private WebElement logoutMessage;
+    @FindBy(xpath = "//li[@id='user-options']//a[@class='login-link']")
+    private WebElement loginPageLink;
 
     public MainPage(WebDriver driver, WebDriverWait wait) {
         this.wait = wait;
@@ -73,37 +64,20 @@ public class MainPage {
         return userProfilePic.getAttribute("data-username");
     }
 
-    public void clickCreateIssue(){
-        createIssueButton.click();
-        wait.until(ExpectedConditions.visibilityOf(createIssueDialoge));
+    public void logout() {
+        userProfilePic.click();
+        wait.until(ExpectedConditions.visibilityOf(logoutButton));
+        logoutButton.click();
+        wait.until(ExpectedConditions.visibilityOf(logoutMessage));
     }
 
-    public void selectProject(String projectName){
-        projectSelectorDropdown.sendKeys(projectName);
-    }
-
-    public void selectTask(String issueType){
-        issueTypeSelectorDropdown.click();
-        issueTypeSelectorDropdown.clear();
-        issueTypeSelectorDropdown.sendKeys(issueType);
-    }
-
-    public void fillSummaryField(String message){
-        summaryField.click();
-        summaryField.sendKeys(message);
-    }
-
-    public void submitNewIssue(){
-        createIssueSubmitButton.click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@class, 'issue-created-key')]")));
-    }
-    public void redirectToSubmittedIssue(){
-        wait.until(ExpectedConditions.visibilityOf(issueSubmittedMessage));
-        issueSubmittedMessage.click();
-        wait.until(ExpectedConditions.visibilityOf(submittedIssueSummary));
-    }
-
-    public WebElement getSubmittedIssueSummary() {
-        return submittedIssueSummary;
+    public boolean userIsLoggedOut() {
+        try {
+            loginPageLink.click();
+            wait.until(ExpectedConditions.visibilityOf(userProfilePic));
+            return false;
+        } catch (NoSuchElementException e) {
+            return true;
+        }
     }
 }

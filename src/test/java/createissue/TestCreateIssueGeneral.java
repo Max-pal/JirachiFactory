@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.MainPage;
+import pages.IssuePage;
 
 import java.util.concurrent.TimeUnit;
 
@@ -21,6 +22,7 @@ public class TestCreateIssueGeneral {
     private String summaryText;
     private WebDriver driver;
     private MainPage mainPage;
+    private static IssuePage issuePage;
     private WebDriverWait wait;
 
     @BeforeEach
@@ -31,19 +33,20 @@ public class TestCreateIssueGeneral {
         driver.manage().window().maximize();
         driver.get("https://jira.codecool.codecanvas.hu/");
         mainPage = new MainPage(driver, wait);
+        issuePage = new IssuePage(driver, wait);
         mainPage.login(USERNAME, PASSWORD);
     }
 
     @ParameterizedTest(name = "\"{0}\"")
     @CsvFileSource(resources = "/data_create_issue.csv", numLinesToSkip = 1)
     public void createIssueTest(String porjectName, String issueType, String summaryText) {
-        mainPage.clickCreateIssue();
-        mainPage.selectProject("\"{0}\"");
-        mainPage.selectTask(issueType);
-        mainPage.fillSummaryField(summaryText);
-        mainPage.submitNewIssue();
-        mainPage.redirectToSubmittedIssue();
-        assertTrue(mainPage.getSubmittedIssueSummary().getText().contains(summaryText));
+        issuePage.clickCreateIssue();
+        issuePage.selectProject("\"{0}\"");
+        issuePage.selectTask(issueType);
+        issuePage.fillSummaryField(summaryText);
+        issuePage.submitNewIssue();
+        issuePage.redirectToSubmittedIssue();
+        assertTrue(issuePage.getSubmittedIssueSummary().getText().contains(summaryText));
     }
 
     @AfterEach
