@@ -13,7 +13,7 @@ public class ProjectPage {
 
     private WebDriverWait wait;
 
-    @FindBy(xpath = "//html/body/div/section/div[1]/div/div[1]/header/div/div[2]/h1/div/div/a")
+    @FindBy(xpath = ".//div[@class='aui-item project-title']/a")
     private WebElement projectName;
 
     public ProjectPage(WebDriver driver, WebDriverWait wait) {
