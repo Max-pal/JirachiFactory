@@ -13,6 +13,8 @@ import pages.ProjectPage;
 
 import java.util.concurrent.TimeUnit;
 
+import static junit.framework.Assert.assertTrue;
+
 public class TestBrowseProjectsFunctionalities {
 
     private static final String BASEURL = "https://jira.codecool.codecanvas.hu/";
@@ -40,7 +42,7 @@ public class TestBrowseProjectsFunctionalities {
     public void BrowseIssueTest(String projectName) {
         projectPage = new ProjectPage(driver, wait);
         driver.get(BASEURL + "projects/" + projectName + "/summary");
-        Assertions.assertEquals(projectName + " Project", projectPage.getProjectNameValue());
+        assertTrue(String.format("ERROR: '%s' does not contain '%s'!", projectPage.getProjectNameValue(), projectName), projectPage.getProjectNameValue().contains(projectName));
     }
 
     @AfterAll
