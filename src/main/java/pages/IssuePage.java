@@ -27,17 +27,18 @@ public class IssuePage {
     private WebElement updateIssueButtonModal;
     @FindBy(id = "issue-edit-submit")
     private WebElement updateIssueButtonDefault;
-    @FindBy(xpath = "//*[@id=\"create_link\"]")
+    @FindBy(xpath = ".//a[@id=\"create_link\"]")
     private WebElement createIssueButton;
-    @FindBy(xpath = "//*[@id=\"create-issue-dialog\"]")
+    @FindBy(xpath = ".//div[@id=\"create-issue-dialog\"]")
     private WebElement createIssueDialoge;
-    @FindBy(xpath = "//*[@id=\"project-field\"]")
+    @FindBy(xpath = ".//input[@id=\"project-field\"]")
     private WebElement projectSelectorDropdown;
-    @FindBy(xpath = "//*[@id=\"issuetype-field\"]")
+    @FindBy(xpath = ".//input[@id=\"issuetype-field\"]")
     private WebElement issueTypeSelectorDropdown;
     @FindBy(id = "create-issue-submit")
     private WebElement createIssueSubmitButton;
-    @FindBy(xpath = "//*[contains(@class, 'issue-created-key')]")
+    @FindBy(xpath = ".//input[@id=\"create-issue-submit\"]")
+
     private WebElement issueSubmittedMessage;
     @FindBy(id = "summary-val")
     private WebElement submittedIssueSummary;
