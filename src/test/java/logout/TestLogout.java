@@ -2,6 +2,7 @@ package logout;
 
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.MainPage;
@@ -18,7 +19,7 @@ public class TestLogout {
 
     @BeforeAll
     public static void setup() {
-        driver = new FirefoxDriver();
+        driver = new ChromeDriver();
         wait = new WebDriverWait(driver, 10);
         mainPage = new MainPage(driver, wait);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);

@@ -38,6 +38,7 @@ public class IssuePage {
     @FindBy(id = "create-issue-submit")
     private WebElement createIssueSubmitButton;
     @FindBy(xpath = ".//input[@id=\"create-issue-submit\"]")
+//    TODO: " -> '
 
     private WebElement issueSubmittedMessage;
     @FindBy(id = "summary-val")
@@ -47,6 +48,7 @@ public class IssuePage {
         this.wait = wait;
         PageFactory.initElements(driver, this);
     }
+    //TODO: Selenium PageFactory AJAX wait library
 
     public String getKeyValue() {
         try {
@@ -65,6 +67,7 @@ public class IssuePage {
 
         updateIssueButtonModal.click();
     }
+
 
     public String getSummary() {
         try {

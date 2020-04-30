@@ -6,16 +6,19 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.IssuePage;
 import pages.MainPage;
+//TODO: No selenium import in Test class, Page object no junit import
 
 import java.util.concurrent.TimeUnit;
 
 public class TestBrowseIssue {
 
     private static final String BASEURL = "https://jira.codecool.codecanvas.hu/";
+    //TODO no "/" at the end of BASEURL
     private static final String USERNAME = System.getenv("USERNAME");
     private static final String PASSWORD = System.getenv("PASSWORD");
     private static WebDriver driver;
@@ -25,7 +28,8 @@ public class TestBrowseIssue {
 
     @BeforeAll
     public static void setup() {
-        driver = new FirefoxDriver();
+        driver = new ChromeDriver();
+        //TODO util class, getWebdriver func switch case with ENV variable
         wait = new WebDriverWait(driver, 10);
         mainPage = new MainPage(driver, wait);
         issuePage = new IssuePage(driver, wait);
