@@ -19,8 +19,8 @@ import static junit.framework.Assert.assertTrue;
 public class TestBrowseProjectsFunctionalities {
 
     private static final String BASEURL = "https://jira.codecool.codecanvas.hu/";
-    private static final String USERNAME = System.getenv("USERNAME");
-    private static final String PASSWORD = System.getenv("PASSWORD");
+    private static final String USERNAME = System.getenv("USERNAME_TEST");
+    private static final String PASSWORD = System.getenv("PASSWORD_TEST");
     private static WebDriver driver;
     private static WebDriverWait wait;
     private static MainPage mainPage;
