@@ -33,6 +33,7 @@ public class TestEditIssue {
     private static MainPage mainPage;
     private static IssuePage issuePage;
 
+
     @BeforeAll
     public static void setup() throws MalformedURLException {
         switch (BROWSER) {
